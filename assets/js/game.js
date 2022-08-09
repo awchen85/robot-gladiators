@@ -3,8 +3,6 @@ var playerHealth= 100;
 var playerAttack= 10;
 var playerMoney= 10;
 
-console.log(playerName, playerAttack, playerHealth);
-
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
@@ -19,20 +17,20 @@ var fight = function(enemyName) {
     enemyHealth = enemyHealth - playerAttack;
     //Log a resulting message to the console so we know it worked
     console.log(
-        playerName + " attacked " + enemyNames + ". " + enemyNames + " now has " + enemyHealth + " health remaining. "
+        playerName + " attacked " + enemyNames[i] + ". " + enemyNames[i] + " now has " + enemyHealth + " health remaining. "
     );
     //check enemy health
     if (enemyHealth <= 0) {
-        window.alert(enemyNames + " has died.");
+        window.alert(enemyNames[i] + " has died.");
     }
     else {
-        window.alert(enemyNames + " still has " + enemyHealth + " health left.");
+        window.alert(enemyNames[i] + " still has " + enemyHealth + " health left.");
     }
     //Subtract the value of 'enemyAttack' from the value of 'playerHealth' and use that result to update the value in the 'playerHealth' variable
     playerHealth = playerHealth - enemyAttack;
     //Log a resulting messgae to the console so we know it worked
     console.log (
-        enemyNames + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
+        enemyNames[i] + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
     );
     if (playerHealth <=0) {
         window.alert(playerName + " has died.");

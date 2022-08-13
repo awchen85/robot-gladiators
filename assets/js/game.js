@@ -4,7 +4,7 @@ var playerAttack= 10;
 var playerMoney= 10;
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
-var enemyHealth = 50;
+var enemyHealth = Math.floor(Math.random() * 60);
 var enemyAttack = 12;
 
 console.log(enemyNames);
@@ -25,16 +25,18 @@ var fight = function(enemyName) {
         if (confirmSkip) {
             window.alert(playerName + " has decided to skip this fight. Goodbye!");
             //subtract money for skipping
-            playerMoney = playerMoney - 10;
+            playerMoney = Math.max(0, playerMoney - 10);
             console.log("playerMoney", playerMoney);
             break;
         }
     }
     
-    //Remove enemy health by subtracting amount of playerAttack
-    enemyHealth = enemyHealth - playerAttack;
+    //Generate random damage value based on player's attack power
+    var damage = randomNumber(playerAttack - 3, playerAttack);
+
+    enemyHealth = Math.max(0, enemyHealth - damage);
     //Log a resulting message to the console so we know it worked
-    console.log( playerName + ' attacked ' + enemyName + '. ' + enemyNames + ' now has ' + enemyHealth + ' health remaining.'
+    console.log( playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
     );
     //check enemy health. stop attacking if dead
     if (enemyHealth <= 0) {
@@ -50,7 +52,9 @@ var fight = function(enemyName) {
     }
 
 //Remove player's health by subtracing the amount in the enemyAttack variable
-    playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+    playerHealth = Math.max(0, playerHealth - damage);
     //Log a resulting messgae to the console so we know it worked
     console.log (
         enemyNames + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
@@ -78,7 +82,7 @@ for(var i = 0; i < enemyNames.length; i++) {
         //pick new enemy to fight based on the index of the enemyNames array
         var pickedEnemyName = enemyNames[i];
         //reset enemyHealth before starting new fight
-        enemyHealth = 50;
+        enemyHealth = randomNumber(40, 60);
         //use debugger to pause script from running, check what's going on
         //debugger;
         fight(pickedEnemyName);
@@ -124,7 +128,6 @@ var endGame = function() {
         window.alert("Thank you for playing Robot Gladiators! Come back soon!");
     }
 }
-
 var shop = function() {
     //ask player what they would like to do
     var shopOptionPrompt = window.prompt(
@@ -161,7 +164,7 @@ var shop = function() {
         case "leave":
         window.alert("Leaving the store.");
 
-        //do nothingo so function ends
+        //do nothing so function ends
         break;
     default:
         window.alert("You did not pick a valid option. Try again.");
@@ -172,6 +175,11 @@ var shop = function() {
     }
 };
 
+var randomNumber = function(min,max) {
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+    return value;
+};
 
 //start the game when the page loads
 startGame(

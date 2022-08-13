@@ -75,6 +75,7 @@ var startGame = function() {
 
             window.alert("Welcome to Robot Gladiators! Round " + ( i + 1) );
             //pick new enemy to fight based on the index of the enemyNames array
+            debugger;
 
             var pickedEnemyObj = enemyInfo[i];
          
@@ -85,7 +86,7 @@ var startGame = function() {
             fight(pickedEnemyObj);
     
             //if we're not at the last enemy in the array
-            if (playerInfo.health > 0 && i < enemyInfo.length - 1)
+            if (playerInfo.health > 0 && i < enemyInfo.length - 1) {
             
             //ask player if they would lke to use store before next round
             var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
@@ -103,10 +104,13 @@ var startGame = function() {
         
         endGame();
     }
+};
 var endGame = function() {
         // if player is still alive, player wins!
+        window.alert("The game has now ended. Let's see how you did!");
         if (playerInfo.health > 0) {
-            window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + " .");
+        window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + " .");
+            
         }
         else {
         window.alert("You've lost your robot in battle.");
@@ -117,12 +121,12 @@ var endGame = function() {
         if (playAgainConfirm) {
             //restart the game
             startGame();
-        }
-        else {
+        } else {
             window.alert("Thank you for playing Robot Gladiators! Come back soon!");
         }
     };
-    // go to shop
+
+   // go to shop
 var shop = function() {
         //ask player what they would like to do
         var shopOptionPrompt = window.prompt(
@@ -144,7 +148,7 @@ var shop = function() {
     
             //do nothing so function ends
             break;
-        default:
+            default:
             window.alert("You did not pick a valid option. Try again.");
     
             //call shop() again to force player to pick a valid option
@@ -152,9 +156,21 @@ var shop = function() {
             break;
         }
     };
+    
+// function to set name
+var getPlayerName = function() {
+    var name="";
+        while (name === "" || name === null) {
+            name = prompt("What is your robot's name?");
+        }
+
+console.log("Your robot's name is " + name);
+return name;
+};
+
     // player info
 var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
@@ -199,7 +215,10 @@ var playerInfo = {
             attack: randomNumber(10, 14)
         }
     ];
-
+    console.log(enemyInfo);
+    console.log(enemyInfo[0]);
+    console.log(enemyInfo[0].name);
+    console.log(enemyInfo[0]['attack']);
 
 // function to end game
 

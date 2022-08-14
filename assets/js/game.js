@@ -103,6 +103,7 @@ var startGame = function() {
          
             // set health for new enemy
             pickedEnemyObj.health = randomNumber(40, 60);
+            console.log(pickedEnemyObj);
       
             // pass enemy's variable value into the value of the fight function
             fight(pickedEnemyObj);
@@ -118,35 +119,44 @@ var startGame = function() {
             shop();
             }
         }
+        
             else {
                 window.alert("You have lost your robot in battle! Game Over!");
                 break;
             }
         }
-        
+    }  
         endGame();
-    }
+    
 };
 var endGame = function() {
-        // if player is still alive, player wins!
-        window.alert("The game has now ended. Let's see how you did!");
-        if (playerInfo.health > 0) {
-        window.alert("Great job, you've survived the game! You now have a score of " + playerInfo.money + " .");
-            
+// if player is still alive, player wins!
+    window.alert("The game has now ended. Let's see how you did!");
+//Check high score, if there isn't one use 0
+    var highScore = localStorage.getItem("highscore");
+    if (highScore === null) {
+        highScore = 0;
+    }
+
+//if player has more money, they have the new high score
+if (playerInfo.money > highScore) {
+    localStorage.setItem("highscore", playerInfo.money);
+    localStorage.setItem("name", playerInfo.name);
+    alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");
+    }
+    else {
+        alert(playerInfo.name + " did not beat the high score of " + ". Maybe next time!");
         }
-        else {
-        window.alert("You've lost your robot in battle.");
-        }
-        // ask player to play again
-        var playAgainConfirm= window.confirm("Would you like to play again?");
+// ask player to play again
+    var playAgainConfirm= window.confirm("Would you like to play again?");
     
-        if (playAgainConfirm) {
-            //restart the game
-            startGame();
-        } else {
-            window.alert("Thank you for playing Robot Gladiators! Come back soon!");
-        }
-    };
+if (playAgainConfirm) {
+//restart the game
+    startGame();
+} else {
+    window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+}
+};
 
    // go to shop
 var shop = function() {
